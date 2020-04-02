@@ -33,6 +33,7 @@ def send_contact_email(contact_entry_id):
     ctx = {
         "comment": contact_entry.comment,
         "full_name": contact_entry.user.get_full_name(),
+        "email": contact_entry.user.email,
         "project_name": contact_entry.project.name,
         "photo_url": get_user_photo_url(contact_entry.user),
         "user_profile_url": resolve_front_url("user", contact_entry.user.username),

@@ -231,6 +231,7 @@ class Command(BaseCommand):
         context = {
             "full_name": user.get_full_name(),
             "project_name": project.name,
+            "email": user.email,
             "photo_url": get_user_photo_url(user),
             "user_profile_url": resolve_front_url("user", user.username),
             "project_settings_url": resolve_front_url("project-admin", project.slug),

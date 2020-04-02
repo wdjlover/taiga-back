@@ -8,7 +8,7 @@
         </a>
     {% endif %}
     {% trans full_name=full_name, user_profile_url=user_profile_url, project_name=project_name %}
-        <a style="font-weight: bold;text-decoration:none;color:#222;" href="{{ user_profile_url }}" title="{{ full_name }}">{{ full_name }}</a> has written to {{ project_name }}
+        <a style="font-weight: bold;text-decoration:none;color:#222;" href="{{ user_profile_url }}" title="{{ full_name }}">{{ full_name }}</a> (<a href="mailto:{{ email }}">{{ email }}</a>) has written to {{ project_name }}
     {% endtrans %}
     </p>
 
