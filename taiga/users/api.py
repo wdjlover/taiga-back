@@ -136,7 +136,8 @@ class UsersViewSet(ModelCrudViewSet):
             # We need to generate a token for the email
             request.user.email_token = str(uuid.uuid4())
             request.user.new_email = new_email
-            request.user.save(update_fields=["email_token", "new_email"])
+            request.user.verified_email = False
+            request.user.save(update_fields=["email_token", "new_email", "verified_email"])
             email = mail_builder.change_email(
                 request.user.new_email,
                 {
@@ -289,7 +290,8 @@ class UsersViewSet(ModelCrudViewSet):
         user.email = new_email
         user.new_email = None
         user.email_token = None
-        user.save(update_fields=["email", "new_email", "email_token"])
+        user.verified_email = True
+        user.save(update_fields=["email", "new_email", "email_token", "verified_email"])
 
         user_change_email_signal.send(sender=user.__class__,
                                       user=user,
@@ -330,7 +332,6 @@ class UsersViewSet(ModelCrudViewSet):
         user.cancel()
         return response.NoContent()
 
-
     @list_route(methods=["POST"])
     def export(self, request, pk=None):
         """
@@ -342,7 +343,6 @@ class UsersViewSet(ModelCrudViewSet):
             "url": file_url
         }
         return response.Ok(response_data)
-
 
     @detail_route(methods=["GET"])
     def contacts(self, request, *args, **kwargs):
