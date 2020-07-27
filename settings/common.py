@@ -38,7 +38,7 @@ DATABASES = {
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "BACKEND": "django.cache.backends.locmem.LocMemCache",
         "LOCATION": "unique-snowflake"
     }
 }
@@ -329,6 +329,7 @@ INSTALLED_APPS = [
     "sr",
     "easy_thumbnails",
     "raven.contrib.django.raven_compat",
+    "django_prometheus",
 ]
 
 WSGI_APPLICATION = "taiga.wsgi.application"
@@ -594,6 +595,12 @@ IMPORTERS = {
         "app_secret": "",
     }
 }
+# Configuration for sending notifications
+NOTIFICATIONS_CUSTOM_FILTER = False
+
+# Prometheus is disabled by default, you need lo import prometheus.py settings
+PROMETHEUS_METRICS_URL = False
+
 
 # NOTE: DON'T INSERT MORE SETTINGS AFTER THIS LINE
 TEST_RUNNER="django.test.runner.DiscoverRunner"
@@ -603,5 +610,3 @@ if "test" in sys.argv:
     print ("Try: \033[1;33mpy.test\033[0m")
     sys.exit(0)
 
-# Configuration for sending notifications
-NOTIFICATIONS_CUSTOM_FILTER = False
